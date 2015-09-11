@@ -21,8 +21,8 @@ public class HDFSOps
 			ClusterConfiguration clusterConfig = ClusterConfiguration.getInstance();
 			FileSystem fs = FileSystem.get(clusterConfig.getConf());
 			String[] data = { "hello its line44.", "hello its line3.", "hello its line2." };
-			File f=new File("/home/rachit/Desktop/logs/sep-9");
-			writeToFile(fs, "inputfile2.txt", f);
+			File f = new File("/home/rachit/Desktop/logs/sep-9");
+			writeToFile(fs, "inputfile3.txt"+90, f);
 
 		}
 		catch (IOException e)
@@ -35,9 +35,11 @@ public class HDFSOps
 	private static void createFile(FileSystem fs, String path) throws IOException
 	{
 		// TODO learn to use Progressable.
+
 		FileSystem fsCrt = fs.newInstance(fs.getConf());
-		short replicationFactor=1;
-		fsCrt.create(new Path(path),replicationFactor);
+
+		short replicationFactor = 1;
+		fsCrt.create(new Path(path), replicationFactor);
 		fsCrt.close();
 		System.out.println("File " + path + " Created Successfully.");
 
@@ -53,7 +55,7 @@ public class HDFSOps
 
 		FSDataOutputStream opStream = fs.append(new Path(path));
 		BufferedWriter bfrWrtr = new BufferedWriter(new OutputStreamWriter(opStream));
-		bfrWrtr.write(data);
+		bfrWrtr.write(data+ System.getProperty("line.separator"));
 		bfrWrtr.close();
 
 		System.out.println("Writing done.");

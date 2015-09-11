@@ -28,9 +28,9 @@ public class WordCount
 		
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException
 		{
-			//HDFSOps.writeToFile(FileSystem.get(context.getConfiguration()), "wordcount_bad_recs", value.toString());
-			
+			HDFSOps.writeToFile(FileSystem.get(context.getConfiguration()), "bad_recs_"+context.getTaskAttemptID().getTaskID().getId(), value.toString());
 			StringTokenizer itr = new StringTokenizer(value.toString());
+			//System.out.println("Inside mapeer: "+context.getTaskAttemptID().getTaskID().getId());
 			while (itr.hasMoreTokens())
 			{
 				word.set(itr.nextToken());
@@ -60,6 +60,7 @@ public class WordCount
 	{
 		ClusterConfiguration clusterConf=ClusterConfiguration.getInstance();
 		Configuration conf=clusterConf.getConf();
+		//Configuration conf=new Configuration();
 		Job job = Job.getInstance(conf, "word count");
 		job.setJarByClass(WordCount.class);
 		job.setMapperClass(TokenizerMapper.class);
@@ -67,10 +68,10 @@ public class WordCount
 		job.setReducerClass(IntSumReducer.class);
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
-//		job.setInputFormatClass(NLineInputFormat.class);
-//		NLineInputFormat.setNumLinesPerSplit(job, 3);
-		FileInputFormat.addInputPath(job, new Path(args[0]));
-		FileOutputFormat.setOutputPath(job, new Path(args[1]));
+		job.setInputFormatClass(NLineInputFormat.class);
+		NLineInputFormat.setNumLinesPerSplit(job, 3);
+		FileInputFormat.addInputPath(job, new Path("new"));
+		FileOutputFormat.setOutputPath(job, new Path("out"));
 		System.exit(job.waitForCompletion(true)?1:0);
 		
 
