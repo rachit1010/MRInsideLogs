@@ -1,0 +1,20 @@
+[
+   {
+      "ID":1,
+      "name":"SMA",
+      "customer":"dd",
+      "domain":"pp"
+   },
+   {
+      "ID":2,
+      "name":"Cisco Ltd.",
+      "customer":"dd",
+      "domain":"pp"
+   },
+   {
+      "ID":2,
+      "name":"Cisco",
+      "customer":"dd",
+      "domain":"pp"
+   }
+]
