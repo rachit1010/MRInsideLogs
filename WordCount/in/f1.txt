@@ -1,6 +1,0 @@
-hello its line 1
-hello its line 2
-hello its line 3
-hello its line 4
-hello its line 5
-hello its line 6
