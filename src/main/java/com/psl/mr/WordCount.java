@@ -28,9 +28,8 @@ public class WordCount
 		
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException
 		{
-			HDFSOps.writeToFile(FileSystem.get(context.getConfiguration()), "bad_recs_"+context.getTaskAttemptID().getTaskID().getId(), value.toString());
+			InsideLogger.writeToFile(FileSystem.get(context.getConfiguration()), "BAD_RECS/bad_recs_"+context.getTaskAttemptID().getTaskID().getId(), value.toString());
 			StringTokenizer itr = new StringTokenizer(value.toString());
-			//System.out.println("Inside mapeer: "+context.getTaskAttemptID().getTaskID().getId());
 			while (itr.hasMoreTokens())
 			{
 				word.set(itr.nextToken());
@@ -69,9 +68,9 @@ public class WordCount
 		job.setOutputKeyClass(Text.class);
 		job.setOutputValueClass(IntWritable.class);
 		job.setInputFormatClass(NLineInputFormat.class);
-		NLineInputFormat.setNumLinesPerSplit(job, 3);
-		FileInputFormat.addInputPath(job, new Path("new"));
-		FileOutputFormat.setOutputPath(job, new Path("out"));
+		NLineInputFormat.setNumLinesPerSplit(job, 4);
+		FileInputFormat.addInputPath(job, new Path("in"));
+		FileOutputFormat.setOutputPath(job, new Path("out2"));
 		System.exit(job.waitForCompletion(true)?1:0);
 		
 

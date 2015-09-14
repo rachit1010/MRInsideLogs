@@ -6,13 +6,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-
-import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 
-public class HDFSOps
+public class InsideLogger
 {
 	public static void main(String[] args)
 	{
@@ -22,7 +20,7 @@ public class HDFSOps
 			FileSystem fs = FileSystem.get(clusterConfig.getConf());
 			String[] data = { "hello its line44.", "hello its line3.", "hello its line2." };
 			File f = new File("/home/rachit/Desktop/logs/sep-9");
-			writeToFile(fs, "inputfile3.txt"+90, f);
+			writeToFile(fs, "inputfile3.txt" + 90, f);
 
 		}
 		catch (IOException e)
@@ -55,7 +53,7 @@ public class HDFSOps
 
 		FSDataOutputStream opStream = fs.append(new Path(path));
 		BufferedWriter bfrWrtr = new BufferedWriter(new OutputStreamWriter(opStream));
-		bfrWrtr.write(data+ System.getProperty("line.separator"));
+		bfrWrtr.write(data + System.getProperty("line.separator"));
 		bfrWrtr.close();
 
 		System.out.println("Writing done.");
